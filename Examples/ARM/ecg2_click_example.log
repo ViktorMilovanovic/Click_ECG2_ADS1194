@@ -1,0 +1,18 @@
+0	1	mikroCARM.exe -MSF -DBG -pLM3S9B95 -BIN -DL -SSA -O11111114 -fo80 -N"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\ecg2_click_example.mcpar" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\TI M3\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\" -SP"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\" -SP"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\" -SP"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\" -SP"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\" -SP"C:\Users\Viktor\Desktop\Klikovi\ECG2_click\Release\ARM\" "ecg2_click_example.c" "ecg2_hal.c" "ecg2_hw.c" "__Lib_Math.emcl" "__Lib_Delays.emcl" "__Lib_MathDouble.emcl" "__Lib_System.emcl" "__Lib_GPIO_9_1_AHB_Defs.emcl" "__Lib_GPIO_X_X_AHB.emcl" "__Lib_CType.emcl" "__Lib_CString.emcl" "__Lib_Conversions.emcl" "__Lib_Sprintf.emcl" "__Lib_SPI_01_ALT.emcl" "__Lib_UART012_HS_mux.emcl"	 
+diagnostics: 0	122	Compilation Started	stdint.h
+diagnostics: 202	123	Compiled Successfully	ecg2_click_example.c
+diagnostics: 0	122	Compilation Started	stdint.h
+diagnostics: 155	123	Compiled Successfully	ecg2_hal.c
+diagnostics: 0	122	Compilation Started	stdint.h
+warning: 138	1503	Result is not defined in function: 'ecg2_rld_sense_enable'	ecg2_hw.c
+warning: 405	1503	Result is not defined in function: 'ecg2_pace_detect_buffer_enable'	ecg2_hw.c
+diagnostics: 438	123	Compiled Successfully	ecg2_hw.c
+diagnostics: 0	127	All files Compiled in 125 ms	 
+hint: 0	1144	Used RX: 16 (100%)   Free RX: 0 (0%)	Used RX: 16 (100%)   Free RX: 0 (0%)
+hint: 0	1144	Static RAM (bytes): 99   Dynamic RAM (bytes): 98201	Static RAM (bytes): 99   Dynamic RAM (bytes): 98201
+hint: 0	1144	Used ROM (bytes): 15033 (6%)  Free ROM (bytes): 247111 (94%)	Used ROM (bytes): 15033 (6%)  Free ROM (bytes): 247111 (94%)
+diagnostics: 0	125	Project Linked Successfully	ecg2_click_example.mcpar
+hint: 242	1004	Possible stack overflow : recursion or cross-calling detected.	__Lib_SPI_01_ALT.c
+diagnostics: 0	128	Linked in 250 ms	 
+diagnostics: 0	129	Project 'ecg2_click_example.mcpar' completed: 515 ms	 
+diagnostics: 0	103	Finished successfully: 11 Jan 2017, 14:17:17	ecg2_click_example.mcpar

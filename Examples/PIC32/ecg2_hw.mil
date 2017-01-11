@@ -1,0 +1,1451 @@
+_register_bit_set:
+  begin   (midx: 0)
+//ecg2_hw.c,5 :: 		void register_bit_set(uint8_t reg, uint8_t bit_num, uint8_t val)
+_register_bit_set:
+  begin   (midx: 0)
+//ecg2_hw.c,9 :: 		ecg2_hal_read_bytes(reg, &tempbuff, 1);
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- addr(register_bit_set_tempbuff_L0)   (midx: 0)
+	FARG_register_bit_set_val <1> <- PUSH(FARG_register_bit_set_val)   (midx: 255)
+	FARG_register_bit_set_bit_num <1> <- PUSH(FARG_register_bit_set_bit_num)   (midx: 255)
+	FARG_register_bit_set_reg <1> <- PUSH(FARG_register_bit_set_reg)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- FARG_register_bit_set_reg   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_register_bit_set_reg <1> <- POP   (midx: 255)
+	FARG_register_bit_set_bit_num <1> <- POP   (midx: 255)
+	FARG_register_bit_set_val <1> <- POP   (midx: 255)
+//ecg2_hw.c,10 :: 		if (val == 1)
+	R3 <4> <- FARG_register_bit_set_val   (midx: 0)
+	R2 <4> <- 1   (midx: 0)
+	if ( R3 != R2) then goto 0   (midx: 0)
+//ecg2_hw.c,11 :: 		tempbuff |= 1 << bit_num;
+	R3 <4> <- FARG_register_bit_set_bit_num   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R3 <1> <-  R2 shl R3  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- register_bit_set_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	register_bit_set_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	1   (midx: 0)
+0:   (midx: 0)
+//ecg2_hw.c,12 :: 		else if (val == 0)
+	R2 <4> <- FARG_register_bit_set_val   (midx: 0)
+	if ( R2 != 0) then goto 2   (midx: 0)
+//ecg2_hw.c,13 :: 		tempbuff &= ~(1 << bit_num);
+	R3 <4> <- FARG_register_bit_set_bit_num   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R2 <1> <-  R2 shl R3  [Optimized To Dest]   (midx: 0)
+	R3 <1> <- ~R2  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- register_bit_set_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & R3  [Optimized To Dest]   (midx: 0)
+	register_bit_set_tempbuff_L0 <1> <- R2   (midx: 0)
+2:   (midx: 0)
+1:   (midx: 0)
+//ecg2_hw.c,14 :: 		ecg2_hal_write_bytes(reg, &tempbuff, 1);
+	R2 <4> <- addr(register_bit_set_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- FARG_register_bit_set_reg   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,15 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_get_device_id:
+  begin   (midx: 0)
+//ecg2_hw.c,17 :: 		uint8_t ecg2_get_device_id()
+_ecg2_get_device_id:
+  begin   (midx: 0)
+//ecg2_hw.c,20 :: 		ecg2_hal_read_bytes(ID_REG, &tempbuff, 1);
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- addr(ecg2_get_device_id_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 0   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+//ecg2_hw.c,21 :: 		return tempbuff;
+	R2 <1> <- ecg2_get_device_id_tempbuff_L0   (midx: 0)
+//ecg2_hw.c,22 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,21 :: 		return tempbuff;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_daisy_chain_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,24 :: 		void ecg2_daisy_chain_enable(bool enable)
+_ecg2_daisy_chain_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,26 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_daisy_chain_enable_enable) then goto 3   (midx: 0)
+//ecg2_hw.c,27 :: 		register_bit_set(CONFIG1_REG, 6, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 6   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	4   (midx: 0)
+3:   (midx: 0)
+//ecg2_hw.c,29 :: 		register_bit_set(CONFIG1_REG, 6, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 6   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+4:   (midx: 0)
+//ecg2_hw.c,30 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_oscillator_clock_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,32 :: 		void ecg2_oscillator_clock_enable ( bool enable )
+_ecg2_oscillator_clock_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,35 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_oscillator_clock_enable_enable) then goto 5   (midx: 0)
+//ecg2_hw.c,36 :: 		register_bit_set(CONFIG1_REG, 5, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 5   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	6   (midx: 0)
+5:   (midx: 0)
+//ecg2_hw.c,38 :: 		register_bit_set(CONFIG1_REG, 5, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 5   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+6:   (midx: 0)
+//ecg2_hw.c,39 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_set_output_data_rate:
+  begin   (midx: 0)
+//ecg2_hw.c,42 :: 		int8_t ecg2_set_output_data_rate(output_data_rate_t output_data_rate)
+_ecg2_set_output_data_rate:
+  begin   (midx: 0)
+//ecg2_hw.c,44 :: 		uint8_t tempbuff = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_set_output_data_rate_tempbuff_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,45 :: 		if (output_data_rate > 7)
+	R2 <4> <- FARG_ecg2_set_output_data_rate_output_data_rate   (midx: 0)
+	if ( R2 <= 8) then goto 7   (midx: 0)
+//ecg2_hw.c,46 :: 		return  -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+7:   (midx: 0)
+//ecg2_hw.c,48 :: 		ecg2_hal_read_bytes(CONFIG1_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_set_output_data_rate_tempbuff_L0)   (midx: 0)
+	FARG_ecg2_set_output_data_rate_output_data_rate <1> <- PUSH(FARG_ecg2_set_output_data_rate_output_data_rate)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_set_output_data_rate_output_data_rate <1> <- POP   (midx: 255)
+//ecg2_hw.c,49 :: 		tempbuff &= ~(7);
+	R3 <1> <- ecg2_set_output_data_rate_tempbuff_L0   (midx: 0)
+	R2 <1> <- -8   (midx: 0)
+	R2 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_set_output_data_rate_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,51 :: 		tempbuff |= output_data_rate;
+	R2 <1> <-  R2 | FARG_ecg2_set_output_data_rate_output_data_rate   (midx: 0)
+	ecg2_set_output_data_rate_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,52 :: 		ecg2_hal_write_bytes(CONFIG1_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_set_output_data_rate_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 1   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,53 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,54 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,53 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_set_test_source:
+  begin   (midx: 0)
+//ecg2_hw.c,56 :: 		int8_t ecg2_set_test_source(test_source_t test_source)
+_ecg2_set_test_source:
+  begin   (midx: 0)
+//ecg2_hw.c,58 :: 		if ( test_source > 1)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_set_test_source_test_source   (midx: 0)
+	if ( R2 <= 2) then goto 8   (midx: 0)
+//ecg2_hw.c,59 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+8:   (midx: 0)
+//ecg2_hw.c,62 :: 		register_bit_set(CONFIG2_REG, 4, test_source);
+	R27 <1> <- FARG_ecg2_set_test_source_test_source   (midx: 0)
+	R26 <1> <- 4   (midx: 0)
+	R25 <1> <- 2   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+//ecg2_hw.c,64 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,65 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,64 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_set_test_amplitude:
+  begin   (midx: 0)
+//ecg2_hw.c,67 :: 		int8_t ecg2_set_test_amplitude (test_amplitude_t amplitutde)
+_ecg2_set_test_amplitude:
+  begin   (midx: 0)
+//ecg2_hw.c,69 :: 		if (amplitutde > 1)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_set_test_amplitude_amplitutde   (midx: 0)
+	if ( R2 <= 2) then goto 10   (midx: 0)
+//ecg2_hw.c,70 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+10:   (midx: 0)
+//ecg2_hw.c,72 :: 		register_bit_set(CONFIG2_REG, 2, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 2   (midx: 0)
+	R25 <1> <- 2   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+//ecg2_hw.c,74 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,75 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,74 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_set_test_frequency:
+  begin   (midx: 0)
+//ecg2_hw.c,78 :: 		int8_t ecg2_set_test_frequency (test_frequency_t frequency)
+_ecg2_set_test_frequency:
+  begin   (midx: 0)
+//ecg2_hw.c,80 :: 		uint8_t tempbuff = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_set_test_frequency_tempbuff_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,81 :: 		if (frequency > 3)
+	R2 <4> <- FARG_ecg2_set_test_frequency_frequency   (midx: 0)
+	if ( R2 <= 4) then goto 12   (midx: 0)
+//ecg2_hw.c,82 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+12:   (midx: 0)
+//ecg2_hw.c,84 :: 		ecg2_hal_read_bytes(CONFIG2_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_set_test_frequency_tempbuff_L0)   (midx: 0)
+	FARG_ecg2_set_test_frequency_frequency <1> <- PUSH(FARG_ecg2_set_test_frequency_frequency)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 2   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_set_test_frequency_frequency <1> <- POP   (midx: 255)
+//ecg2_hw.c,86 :: 		tempbuff &= ~(3);
+	R3 <1> <- ecg2_set_test_frequency_tempbuff_L0   (midx: 0)
+	R2 <1> <- -4   (midx: 0)
+	R2 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_set_test_frequency_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,87 :: 		tempbuff |= frequency;
+	R2 <1> <-  R2 | FARG_ecg2_set_test_frequency_frequency   (midx: 0)
+	ecg2_set_test_frequency_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,88 :: 		ecg2_hal_write_bytes(CONFIG2_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_set_test_frequency_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 2   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,89 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,90 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,89 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_power_down_reference_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,92 :: 		void ecg2_power_down_reference_buffer_enable(bool enable)
+_ecg2_power_down_reference_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,94 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_power_down_reference_buffer_enable_enable) then goto 13   (midx: 0)
+//ecg2_hw.c,95 :: 		register_bit_set(CONFIG3_REG, 7, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 7   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	14   (midx: 0)
+13:   (midx: 0)
+//ecg2_hw.c,97 :: 		register_bit_set(CONFIG3_REG, 7, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 7   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+14:   (midx: 0)
+//ecg2_hw.c,98 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_set_reference_voltage:
+  begin   (midx: 0)
+//ecg2_hw.c,100 :: 		int8_t ecg2_set_reference_voltage(reference_voltage_t refvol)
+_ecg2_set_reference_voltage:
+  begin   (midx: 0)
+//ecg2_hw.c,102 :: 		if (refvol > 1)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_set_reference_voltage_refvol   (midx: 0)
+	if ( R2 <= 2) then goto 15   (midx: 0)
+//ecg2_hw.c,103 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+15:   (midx: 0)
+//ecg2_hw.c,106 :: 		register_bit_set(CONFIG3_REG, 5, refvol);
+	R27 <1> <- FARG_ecg2_set_reference_voltage_refvol   (midx: 0)
+	R26 <1> <- 5   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+//ecg2_hw.c,107 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_rld_measurement_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,109 :: 		void ecg2_rld_measurement_enable( bool enable )
+_ecg2_rld_measurement_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,111 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_rld_measurement_enable_enable) then goto 17   (midx: 0)
+//ecg2_hw.c,112 :: 		register_bit_set(CONFIG3_REG, 4, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 4   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	18   (midx: 0)
+17:   (midx: 0)
+//ecg2_hw.c,114 :: 		register_bit_set(CONFIG3_REG, 4, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 4   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+18:   (midx: 0)
+//ecg2_hw.c,115 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_rldref_source_select:
+  begin   (midx: 0)
+//ecg2_hw.c,117 :: 		int8_t ecg2_rldref_source_select(rldef_signal_t source)
+_ecg2_rldref_source_select:
+  begin   (midx: 0)
+//ecg2_hw.c,119 :: 		if (source > 1)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_rldref_source_select_source   (midx: 0)
+	if ( R2 <= 2) then goto 19   (midx: 0)
+//ecg2_hw.c,120 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+19:   (midx: 0)
+//ecg2_hw.c,122 :: 		register_bit_set(CONFIG3_REG, 3, source);
+	R27 <1> <- FARG_ecg2_rldref_source_select_source   (midx: 0)
+	R26 <1> <- 3   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+//ecg2_hw.c,123 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_rld_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,125 :: 		void ecg2_rld_buffer_enable (bool enable)
+_ecg2_rld_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,127 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_rld_buffer_enable_enable) then goto 21   (midx: 0)
+//ecg2_hw.c,128 :: 		register_bit_set(CONFIG3_REG, 2, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 2   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	22   (midx: 0)
+21:   (midx: 0)
+//ecg2_hw.c,130 :: 		register_bit_set(CONFIG3_REG, 2, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 2   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+22:   (midx: 0)
+//ecg2_hw.c,131 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_rld_sense_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,133 :: 		int8_t ecg2_rld_sense_enable(bool enable)
+_ecg2_rld_sense_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,135 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_rld_sense_enable_enable) then goto 23   (midx: 0)
+//ecg2_hw.c,136 :: 		register_bit_set(CONFIG3_REG, 1, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 1   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	24   (midx: 0)
+23:   (midx: 0)
+//ecg2_hw.c,138 :: 		register_bit_set(CONFIG3_REG, 1, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 1   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+24:   (midx: 0)
+//ecg2_hw.c,139 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_rld_get_status:
+  begin   (midx: 0)
+//ecg2_hw.c,141 :: 		uint8_t ecg2_rld_get_status ()
+_ecg2_rld_get_status:
+  begin   (midx: 0)
+//ecg2_hw.c,143 :: 		uint8_t tempbuff = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_rld_get_status_tempbuff_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,144 :: 		ecg2_hal_read_bytes(CONFIG3_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_rld_get_status_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 3   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+//ecg2_hw.c,145 :: 		return (tempbuff & 1);
+	R2 <1> <- ecg2_rld_get_status_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 1   (midx: 0)
+	R2 <1> <- R2   (midx: 0)
+//ecg2_hw.c,146 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,145 :: 		return (tempbuff & 1);
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_lead_off_comparator_threshold_set:
+  begin   (midx: 0)
+//ecg2_hw.c,148 :: 		int8_t ecg2_lead_off_comparator_threshold_set(lead_off_threshold_t threshold)
+_ecg2_lead_off_comparator_threshold_set:
+  begin   (midx: 0)
+//ecg2_hw.c,150 :: 		uint8_t tempbuf = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_lead_off_comparator_threshold_set_tempbuf_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,151 :: 		if (threshold > 7)
+	R2 <4> <- FARG_ecg2_lead_off_comparator_threshold_set_threshold   (midx: 0)
+	if ( R2 <= 8) then goto 25   (midx: 0)
+//ecg2_hw.c,152 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+25:   (midx: 0)
+//ecg2_hw.c,154 :: 		ecg2_hal_read_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_lead_off_comparator_threshold_set_tempbuf_L0)   (midx: 0)
+	FARG_ecg2_lead_off_comparator_threshold_set_threshold <1> <- PUSH(FARG_ecg2_lead_off_comparator_threshold_set_threshold)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_lead_off_comparator_threshold_set_threshold <1> <- POP   (midx: 255)
+//ecg2_hw.c,155 :: 		tempbuf &= ~(7 << 5);
+	R2 <1> <- ecg2_lead_off_comparator_threshold_set_tempbuf_L0   (midx: 0)
+	R3 <1> <-  R2 & 31   (midx: 0)
+	ecg2_lead_off_comparator_threshold_set_tempbuf_L0 <1> <- R3   (midx: 0)
+//ecg2_hw.c,156 :: 		tempbuf |= threshold << 5;
+	R2 <4> <- FARG_ecg2_lead_off_comparator_threshold_set_threshold   (midx: 0)
+	R2 <1> <-  R2 shl 5  [Optimized To Dest]   (midx: 0)
+	R2 <1> <-  R3 | R2  [Optimized To Dest]   (midx: 0)
+	ecg2_lead_off_comparator_threshold_set_tempbuf_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,157 :: 		ecg2_hal_write_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_lead_off_comparator_threshold_set_tempbuf_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,158 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,159 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,158 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_vlead_off_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,161 :: 		void ecg2_vlead_off_enable(bool enable)
+_ecg2_vlead_off_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,163 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_vlead_off_enable_enable) then goto 26   (midx: 0)
+//ecg2_hw.c,164 :: 		register_bit_set(LOFF_REG, 4, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 4   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	27   (midx: 0)
+26:   (midx: 0)
+//ecg2_hw.c,166 :: 		register_bit_set(LOFF_REG, 4, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 4   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+27:   (midx: 0)
+//ecg2_hw.c,167 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_ilead_off_magnitude_set:
+  begin   (midx: 0)
+//ecg2_hw.c,169 :: 		int8_t ecg2_ilead_off_magnitude_set (ilead_off_magnitude_t set)
+_ecg2_ilead_off_magnitude_set:
+  begin   (midx: 0)
+//ecg2_hw.c,171 :: 		uint8_t tempbuf = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_ilead_off_magnitude_set_tempbuf_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,172 :: 		if (set > 3)
+	R2 <4> <- FARG_ecg2_ilead_off_magnitude_set_set   (midx: 0)
+	if ( R2 <= 4) then goto 28   (midx: 0)
+//ecg2_hw.c,173 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+28:   (midx: 0)
+//ecg2_hw.c,175 :: 		ecg2_hal_read_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_ilead_off_magnitude_set_tempbuf_L0)   (midx: 0)
+	FARG_ecg2_ilead_off_magnitude_set_set <1> <- PUSH(FARG_ecg2_ilead_off_magnitude_set_set)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_ilead_off_magnitude_set_set <1> <- POP   (midx: 255)
+//ecg2_hw.c,176 :: 		tempbuf &= ~(3 << 2);
+	R3 <1> <- ecg2_ilead_off_magnitude_set_tempbuf_L0   (midx: 0)
+	R2 <1> <- -13   (midx: 0)
+	R3 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_ilead_off_magnitude_set_tempbuf_L0 <1> <- R3   (midx: 0)
+//ecg2_hw.c,177 :: 		tempbuf |= set << 2;
+	R2 <4> <- FARG_ecg2_ilead_off_magnitude_set_set   (midx: 0)
+	R2 <1> <-  R2 shl 2  [Optimized To Dest]   (midx: 0)
+	R2 <1> <-  R3 | R2  [Optimized To Dest]   (midx: 0)
+	ecg2_ilead_off_magnitude_set_tempbuf_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,178 :: 		ecg2_hal_write_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_ilead_off_magnitude_set_tempbuf_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,179 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_flead_off_frequency_set:
+  begin   (midx: 0)
+//ecg2_hw.c,181 :: 		int8_t ecg2_flead_off_frequency_set (uint8_t set)
+_ecg2_flead_off_frequency_set:
+  begin   (midx: 0)
+//ecg2_hw.c,183 :: 		uint8_t tempbuf = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_flead_off_frequency_set_tempbuf_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,184 :: 		if (set > 3 )
+	R2 <4> <- FARG_ecg2_flead_off_frequency_set_set   (midx: 0)
+	if ( R2 <= 4) then goto 29   (midx: 0)
+//ecg2_hw.c,185 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+29:   (midx: 0)
+//ecg2_hw.c,186 :: 		ecg2_hal_read_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_flead_off_frequency_set_tempbuf_L0)   (midx: 0)
+	FARG_ecg2_flead_off_frequency_set_set <1> <- PUSH(FARG_ecg2_flead_off_frequency_set_set)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_flead_off_frequency_set_set <1> <- POP   (midx: 255)
+//ecg2_hw.c,187 :: 		tempbuf &= ~ 3;
+	R3 <1> <- ecg2_flead_off_frequency_set_tempbuf_L0   (midx: 0)
+	R2 <1> <- -4   (midx: 0)
+	R2 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_flead_off_frequency_set_tempbuf_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,188 :: 		tempbuf |= set;
+	R2 <1> <-  R2 | FARG_ecg2_flead_off_frequency_set_set   (midx: 0)
+	ecg2_flead_off_frequency_set_tempbuf_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,189 :: 		ecg2_hal_write_bytes(LOFF_REG, &tempbuf, 1);
+	R2 <4> <- addr(ecg2_flead_off_frequency_set_tempbuf_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 4   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,190 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_configure_channel:
+  begin   (midx: 0)
+//ecg2_hw.c,192 :: 		int8_t ecg2_configure_channel (uint8_t channel, bool power_down, uint8_t pga_gain, uint8_t channel_input)
+_ecg2_configure_channel:
+  begin   (midx: 0)
+//ecg2_hw.c,194 :: 		uint8_t tempbuff = 0;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0_1 <-initialize(0)   (midx: 0)
+//ecg2_hw.c,196 :: 		switch (channel)
+	goto	30   (midx: 0)
+//ecg2_hw.c,198 :: 		case 1:
+32:   (midx: 0)
+//ecg2_hw.c,199 :: 		if (pga_gain > 7)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 8) then goto 33   (midx: 0)
+//ecg2_hw.c,200 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+33:   (midx: 0)
+//ecg2_hw.c,202 :: 		if ( channel_input > 7 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 8) then goto 34   (midx: 0)
+//ecg2_hw.c,203 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+34:   (midx: 0)
+//ecg2_hw.c,205 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0_1   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0_2 <1> <- R2   (midx: 0)
+//ecg2_hw.c,206 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0_3 <1> <- R2   (midx: 0)
+//ecg2_hw.c,207 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 35   (midx: 0)
+//ecg2_hw.c,208 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0_3   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0_5 <1> <- R2   (midx: 0)
+	goto	36   (midx: 0)
+35:   (midx: 0)
+//ecg2_hw.c,210 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0_3   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0_4 <1> <- R2   (midx: 0)
+36:   (midx: 0)
+//ecg2_hw.c,212 :: 		ecg2_hal_write_bytes(CH1SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 5   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,213 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,215 :: 		case 2:
+37:   (midx: 0)
+//ecg2_hw.c,216 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 38   (midx: 0)
+//ecg2_hw.c,217 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+38:   (midx: 0)
+//ecg2_hw.c,219 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 39   (midx: 0)
+//ecg2_hw.c,220 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+39:   (midx: 0)
+//ecg2_hw.c,222 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 40   (midx: 0)
+//ecg2_hw.c,223 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	41   (midx: 0)
+40:   (midx: 0)
+//ecg2_hw.c,225 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+41:   (midx: 0)
+//ecg2_hw.c,227 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,228 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,229 :: 		ecg2_hal_write_bytes(CH2SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 6   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,230 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,232 :: 		case 3:
+42:   (midx: 0)
+//ecg2_hw.c,233 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 43   (midx: 0)
+//ecg2_hw.c,234 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+43:   (midx: 0)
+//ecg2_hw.c,236 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 44   (midx: 0)
+//ecg2_hw.c,237 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+44:   (midx: 0)
+//ecg2_hw.c,239 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 45   (midx: 0)
+//ecg2_hw.c,240 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	46   (midx: 0)
+45:   (midx: 0)
+//ecg2_hw.c,242 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+46:   (midx: 0)
+//ecg2_hw.c,244 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,245 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,246 :: 		ecg2_hal_write_bytes(CH3SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 7   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,247 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,249 :: 		case 4:
+47:   (midx: 0)
+//ecg2_hw.c,250 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 48   (midx: 0)
+//ecg2_hw.c,251 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+48:   (midx: 0)
+//ecg2_hw.c,253 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 49   (midx: 0)
+//ecg2_hw.c,254 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+49:   (midx: 0)
+//ecg2_hw.c,256 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 50   (midx: 0)
+//ecg2_hw.c,257 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	51   (midx: 0)
+50:   (midx: 0)
+//ecg2_hw.c,259 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+51:   (midx: 0)
+//ecg2_hw.c,261 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,262 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,263 :: 		ecg2_hal_write_bytes(CH4SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 8   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,264 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,265 :: 		case 5:
+52:   (midx: 0)
+//ecg2_hw.c,266 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 53   (midx: 0)
+//ecg2_hw.c,267 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+53:   (midx: 0)
+//ecg2_hw.c,269 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 54   (midx: 0)
+//ecg2_hw.c,270 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+54:   (midx: 0)
+//ecg2_hw.c,272 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 55   (midx: 0)
+//ecg2_hw.c,273 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	56   (midx: 0)
+55:   (midx: 0)
+//ecg2_hw.c,275 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+56:   (midx: 0)
+//ecg2_hw.c,277 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,278 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,279 :: 		ecg2_hal_write_bytes(CH5SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 9   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,280 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,282 :: 		case 6:
+57:   (midx: 0)
+//ecg2_hw.c,283 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 58   (midx: 0)
+//ecg2_hw.c,284 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+58:   (midx: 0)
+//ecg2_hw.c,286 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 59   (midx: 0)
+//ecg2_hw.c,287 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+59:   (midx: 0)
+//ecg2_hw.c,289 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 60   (midx: 0)
+//ecg2_hw.c,290 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	61   (midx: 0)
+60:   (midx: 0)
+//ecg2_hw.c,292 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+61:   (midx: 0)
+//ecg2_hw.c,294 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,295 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,296 :: 		ecg2_hal_write_bytes(CH6SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 10   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,297 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,299 :: 		case 7:
+62:   (midx: 0)
+//ecg2_hw.c,300 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 63   (midx: 0)
+//ecg2_hw.c,301 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+63:   (midx: 0)
+//ecg2_hw.c,303 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 64   (midx: 0)
+//ecg2_hw.c,304 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+64:   (midx: 0)
+//ecg2_hw.c,306 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 65   (midx: 0)
+//ecg2_hw.c,307 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	66   (midx: 0)
+65:   (midx: 0)
+//ecg2_hw.c,309 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+66:   (midx: 0)
+//ecg2_hw.c,311 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,312 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,313 :: 		ecg2_hal_write_bytes(CH7SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 11   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,314 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,316 :: 		case 8:
+67:   (midx: 0)
+//ecg2_hw.c,317 :: 		if (pga_gain > 15)
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	if ( R2 <= 16) then goto 68   (midx: 0)
+//ecg2_hw.c,318 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+68:   (midx: 0)
+//ecg2_hw.c,320 :: 		if ( channel_input > 15 )
+	R2 <4> <- FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	if ( R2 <= 16) then goto 69   (midx: 0)
+//ecg2_hw.c,321 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+69:   (midx: 0)
+//ecg2_hw.c,323 :: 		if (power_down)
+	if (!FARG_ecg2_configure_channel_power_down) then goto 70   (midx: 0)
+//ecg2_hw.c,324 :: 		tempbuff |= 1 << 7;
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | 128   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+	goto	71   (midx: 0)
+70:   (midx: 0)
+//ecg2_hw.c,326 :: 		tempbuff &= ~(1 << 7);
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 & 127   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+71:   (midx: 0)
+//ecg2_hw.c,328 :: 		tempbuff |= pga_gain << 4;
+	R2 <4> <- FARG_ecg2_configure_channel_pga_gain   (midx: 0)
+	R3 <1> <-  R2 shl 4  [Optimized To Dest]   (midx: 0)
+	R2 <1> <- ecg2_configure_channel_tempbuff_L0   (midx: 0)
+	R2 <1> <-  R2 | R3  [Optimized To Dest]   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,329 :: 		tempbuff |= channel_input;
+	R2 <1> <-  R2 | FARG_ecg2_configure_channel_channel_input   (midx: 0)
+	ecg2_configure_channel_tempbuff_L0 <1> <- R2   (midx: 0)
+//ecg2_hw.c,330 :: 		ecg2_hal_write_bytes(CH8SET_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_configure_channel_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 12   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,331 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,333 :: 		default:
+72:   (midx: 0)
+//ecg2_hw.c,334 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+//ecg2_hw.c,335 :: 		}
+30:   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 1   (midx: 0)
+	if ( R3 = R2) then goto 32   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 2   (midx: 0)
+	if ( R3 = R2) then goto 37   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 3   (midx: 0)
+	if ( R3 = R2) then goto 42   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 4   (midx: 0)
+	if ( R3 = R2) then goto 47   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 5   (midx: 0)
+	if ( R3 = R2) then goto 52   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 6   (midx: 0)
+	if ( R3 = R2) then goto 57   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 7   (midx: 0)
+	if ( R3 = R2) then goto 62   (midx: 0)
+	R3 <4> <- FARG_ecg2_configure_channel_channel   (midx: 0)
+	R2 <4> <- 8   (midx: 0)
+	if ( R3 = R2) then goto 67   (midx: 0)
+	goto	72   (midx: 0)
+//ecg2_hw.c,336 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_right_leg_positive_drive_set:
+  begin   (midx: 0)
+//ecg2_hw.c,338 :: 		void ecg2_right_leg_positive_drive_set(uint8_t set)
+_ecg2_right_leg_positive_drive_set:
+  begin   (midx: 0)
+//ecg2_hw.c,340 :: 		uint8_t tempbuff = set;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	ecg2_right_leg_positive_drive_set_tempbuff_L0_1 <1> <- FARG_ecg2_right_leg_positive_drive_set_set   (midx: 0)
+//ecg2_hw.c,341 :: 		ecg2_hal_write_bytes(RLD_SENSP_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_right_leg_positive_drive_set_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 13   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,342 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_right_leg_negative_drive_set:
+  begin   (midx: 0)
+//ecg2_hw.c,344 :: 		void ecg2_right_leg_negative_drive_set(uint8_t set)
+_ecg2_right_leg_negative_drive_set:
+  begin   (midx: 0)
+//ecg2_hw.c,346 :: 		uint8_t tempbuff = set;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	ecg2_right_leg_negative_drive_set_tempbuff_L0_1 <1> <- FARG_ecg2_right_leg_negative_drive_set_set   (midx: 0)
+//ecg2_hw.c,347 :: 		ecg2_hal_write_bytes(RLD_SENSN_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_right_leg_negative_drive_set_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 14   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,348 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_lead_off_positive_channel_select:
+  begin   (midx: 0)
+//ecg2_hw.c,350 :: 		void ecg2_lead_off_positive_channel_select (uint8_t set)
+_ecg2_lead_off_positive_channel_select:
+  begin   (midx: 0)
+//ecg2_hw.c,352 :: 		uint8_t tempbuff = set;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	ecg2_lead_off_positive_channel_select_tempbuff_L0_1 <1> <- FARG_ecg2_lead_off_positive_channel_select_set   (midx: 0)
+//ecg2_hw.c,353 :: 		ecg2_hal_write_bytes(LOFF_SENSP_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_lead_off_positive_channel_select_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 15   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,354 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_lead_off_negative_channel_select:
+  begin   (midx: 0)
+//ecg2_hw.c,356 :: 		void ecg2_lead_off_negative_channel_select (uint8_t set)
+_ecg2_lead_off_negative_channel_select:
+  begin   (midx: 0)
+//ecg2_hw.c,358 :: 		uint8_t tempbuff = set;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	ecg2_lead_off_negative_channel_select_tempbuff_L0_1 <1> <- FARG_ecg2_lead_off_negative_channel_select_set   (midx: 0)
+//ecg2_hw.c,359 :: 		ecg2_hal_write_bytes(LOFF_SENSN_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_lead_off_negative_channel_select_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 16   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,360 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_lead_off_current_direction_select:
+  begin   (midx: 0)
+//ecg2_hw.c,362 :: 		void ecg2_lead_off_current_direction_select (uint8_t set)
+_ecg2_lead_off_current_direction_select:
+  begin   (midx: 0)
+//ecg2_hw.c,364 :: 		uint8_t tempbuff = set;
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	ecg2_lead_off_current_direction_select_tempbuff_L0_1 <1> <- FARG_ecg2_lead_off_current_direction_select_set   (midx: 0)
+//ecg2_hw.c,365 :: 		ecg2_hal_write_bytes(LOFF_FLIP_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_lead_off_current_direction_select_tempbuff_L0)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 17   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,366 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_pace_detect_even_channels_select:
+  begin   (midx: 0)
+//ecg2_hw.c,368 :: 		int8_t ecg2_pace_detect_even_channels_select (pace_even_channels_t select)
+_ecg2_pace_detect_even_channels_select:
+  begin   (midx: 0)
+//ecg2_hw.c,370 :: 		if (select > 3)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_pace_detect_even_channels_select_select   (midx: 0)
+	if ( R2 <= 4) then goto 73   (midx: 0)
+//ecg2_hw.c,371 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+73:   (midx: 0)
+//ecg2_hw.c,375 :: 		uint8_t tempbuff = select;
+	ecg2_pace_detect_even_channels_select_tempbuff_L1_1 <1> <- FARG_ecg2_pace_detect_even_channels_select_select   (midx: 0)
+//ecg2_hw.c,376 :: 		ecg2_hal_read_bytes(PACE_REG, &tempbuff, 1);
+	R2 <4> <- addr(ecg2_pace_detect_even_channels_select_tempbuff_L1)   (midx: 0)
+	FARG_ecg2_pace_detect_even_channels_select_select <1> <- PUSH(FARG_ecg2_pace_detect_even_channels_select_select)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_pace_detect_even_channels_select_select <1> <- POP   (midx: 255)
+//ecg2_hw.c,377 :: 		tempbuff &= ~(3 << 3);
+	R3 <1> <- ecg2_pace_detect_even_channels_select_tempbuff_L1   (midx: 0)
+	R2 <1> <- -25   (midx: 0)
+	R3 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_pace_detect_even_channels_select_tempbuff_L1 <1> <- R3   (midx: 0)
+//ecg2_hw.c,378 :: 		tempbuff |= select << 3;
+	R2 <4> <- FARG_ecg2_pace_detect_even_channels_select_select   (midx: 0)
+	R2 <1> <-  R2 shl 3  [Optimized To Dest]   (midx: 0)
+	R2 <1> <-  R3 | R2  [Optimized To Dest]   (midx: 0)
+	ecg2_pace_detect_even_channels_select_tempbuff_L1 <1> <- R2   (midx: 0)
+//ecg2_hw.c,379 :: 		ecg2_hal_write_bytes(PACE_REG, &tempbuff, 1 );
+	R2 <4> <- addr(ecg2_pace_detect_even_channels_select_tempbuff_L1)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,380 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,382 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,380 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_pace_detect_odd_channels_select:
+  begin   (midx: 0)
+//ecg2_hw.c,384 :: 		int8_t ecg2_pace_detect_odd_channels_select (pace_odd_channels_t select)
+_ecg2_pace_detect_odd_channels_select:
+  begin   (midx: 0)
+//ecg2_hw.c,386 :: 		if (select > 3)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R2 <4> <- FARG_ecg2_pace_detect_odd_channels_select_select   (midx: 0)
+	if ( R2 <= 4) then goto 75   (midx: 0)
+//ecg2_hw.c,387 :: 		return -1;
+	R2 <1> <- -1   (midx: 0)
+	return   (midx: 0)
+75:   (midx: 0)
+//ecg2_hw.c,391 :: 		uint8_t tempbuff = select;
+	ecg2_pace_detect_odd_channels_select_tempbuff_L1_1 <1> <- FARG_ecg2_pace_detect_odd_channels_select_select   (midx: 0)
+//ecg2_hw.c,392 :: 		ecg2_hal_read_bytes(PACE_REG, &tempbuff, 1 );
+	R2 <4> <- addr(ecg2_pace_detect_odd_channels_select_tempbuff_L1)   (midx: 0)
+	FARG_ecg2_pace_detect_odd_channels_select_select <1> <- PUSH(FARG_ecg2_pace_detect_odd_channels_select_select)   (midx: 255)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _ecg2_hal_read_bytes   (midx: 0)
+	FARG_ecg2_pace_detect_odd_channels_select_select <1> <- POP   (midx: 255)
+//ecg2_hw.c,393 :: 		tempbuff &= ~(3 << 1);
+	R3 <1> <- ecg2_pace_detect_odd_channels_select_tempbuff_L1   (midx: 0)
+	R2 <1> <- -7   (midx: 0)
+	R3 <1> <-  R3 & R2  [Optimized To Dest]   (midx: 0)
+	ecg2_pace_detect_odd_channels_select_tempbuff_L1 <1> <- R3   (midx: 0)
+//ecg2_hw.c,394 :: 		tempbuff |= select << 1;
+	R2 <4> <- FARG_ecg2_pace_detect_odd_channels_select_select   (midx: 0)
+	R2 <1> <-  R2 shl 1  [Optimized To Dest]   (midx: 0)
+	R2 <1> <-  R3 | R2  [Optimized To Dest]   (midx: 0)
+	ecg2_pace_detect_odd_channels_select_tempbuff_L1 <1> <- R2   (midx: 0)
+//ecg2_hw.c,395 :: 		ecg2_hal_write_bytes(PACE_REG, &tempbuff, 1 );
+	R2 <4> <- addr(ecg2_pace_detect_odd_channels_select_tempbuff_L1)   (midx: 0)
+	R27 <1> <- 1   (midx: 0)
+	R26 <4> <- R2   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,396 :: 		return 0;
+	R2 <1> <- 0   (midx: 0)
+//ecg2_hw.c,398 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+//ecg2_hw.c,396 :: 		return 0;
+	return   (midx: 0)
+  end
+   (midx: 0)
+_ecg2_pace_detect_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,400 :: 		int8_t ecg2_pace_detect_buffer_enable ( bool enable )
+_ecg2_pace_detect_buffer_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,402 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_pace_detect_buffer_enable_enable) then goto 77   (midx: 0)
+//ecg2_hw.c,403 :: 		register_bit_set(PACE_REG, 0, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 0   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	78   (midx: 0)
+77:   (midx: 0)
+//ecg2_hw.c,405 :: 		register_bit_set(PACE_REG, 0, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 0   (midx: 0)
+	R25 <1> <- 21   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+78:   (midx: 0)
+//ecg2_hw.c,406 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_single_shot_conversion_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,408 :: 		void ecg2_single_shot_conversion_enable ( bool enable )
+_ecg2_single_shot_conversion_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,410 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_single_shot_conversion_enable_enable) then goto 79   (midx: 0)
+//ecg2_hw.c,411 :: 		register_bit_set(CONFIG4_REG, 3, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 3   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	80   (midx: 0)
+79:   (midx: 0)
+//ecg2_hw.c,413 :: 		register_bit_set(CONFIG4_REG, 3, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 3   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+80:   (midx: 0)
+//ecg2_hw.c,414 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_wct_to_rld_connection_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,416 :: 		void ecg2_wct_to_rld_connection_enable ( bool enable )
+_ecg2_wct_to_rld_connection_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,418 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_wct_to_rld_connection_enable_enable) then goto 81   (midx: 0)
+//ecg2_hw.c,419 :: 		register_bit_set(CONFIG4_REG, 2, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 2   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	82   (midx: 0)
+81:   (midx: 0)
+//ecg2_hw.c,421 :: 		register_bit_set(CONFIG4_REG, 2, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 2   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+82:   (midx: 0)
+//ecg2_hw.c,422 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_lead_off_comparator_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,424 :: 		void ecg2_lead_off_comparator_enable (bool enable )
+_ecg2_lead_off_comparator_enable:
+  begin   (midx: 0)
+//ecg2_hw.c,426 :: 		if (enable)
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	if (!FARG_ecg2_lead_off_comparator_enable_enable) then goto 83   (midx: 0)
+//ecg2_hw.c,427 :: 		register_bit_set(CONFIG4_REG, 1, 1);
+	R27 <1> <- 1   (midx: 0)
+	R26 <1> <- 1   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+	goto	84   (midx: 0)
+83:   (midx: 0)
+//ecg2_hw.c,429 :: 		register_bit_set(CONFIG4_REG, 1, 0);
+	R27 <1> <- 0   (midx: 0)
+	R26 <1> <- 1   (midx: 0)
+	R25 <1> <- 23   (midx: 0)
+	CALL _register_bit_set   (midx: 0)
+84:   (midx: 0)
+//ecg2_hw.c,430 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
+_ecg2_wilson_center_terminal_configure:
+  begin   (midx: 0)
+//ecg2_hw.c,432 :: 		void ecg2_wilson_center_terminal_configure (uint16_t set)
+_ecg2_wilson_center_terminal_configure:
+  begin   (midx: 0)
+//ecg2_hw.c,435 :: 		tempbuff[0] = (uint8_t) set; // lsb
+	R25 <4> <- PUSH(R25)   (midx: 0)
+	R26 <4> <- PUSH(R26)   (midx: 0)
+	R27 <4> <- PUSH(R27)   (midx: 0)
+	R4 <4> <- addr(ecg2_wilson_center_terminal_configure_tempbuff_L0)   (midx: 0)
+	[R4] <1> <- FARG_ecg2_wilson_center_terminal_configure_set   (midx: 0)
+//ecg2_hw.c,436 :: 		tempbuff[1] = (uint8_t) (set >> 8); // msb
+	R3 <4> <-  R4 + 1   (midx: 2)
+	R2 <4> <- FARG_ecg2_wilson_center_terminal_configure_set   (midx: 0)
+	R2 <2> <-  R2 shr 8   (midx: 1)
+	[R3] <1> <- R2   (midx: 0)
+//ecg2_hw.c,438 :: 		ecg2_hal_write_bytes(WCT1_REG, tempbuff, 2);
+	R27 <1> <- 2   (midx: 0)
+	R26 <4> <- R4   (midx: 0)
+	R25 <1> <- 24   (midx: 0)
+	CALL _ecg2_hal_write_bytes   (midx: 0)
+//ecg2_hw.c,439 :: 		}
+	R27 <4> <- POP   (midx: 251)
+	R26 <4> <- POP   (midx: 251)
+	R25 <4> <- POP   (midx: 251)
+  end
+   (midx: 0)
