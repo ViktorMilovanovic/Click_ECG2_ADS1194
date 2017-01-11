@@ -196,8 +196,8 @@ void main() {
 
         while (ECG2_DRDY) {} // Wait for ADS1194 device to prepare output data. Data is ready every 8 milliseconds
         Delay_us(5);
-        for (i=0; i<num_bytes_sample; i++) // read ADS1194 output data, one sample
-		ecg_data_sample[i] = SPI_Read(0);
+        for (i=0; i<num_bytes_sample; i++) { ecg_data_sample[i] = SPI_Read(0); } // read ADS1194 output data, one sample
+        if (ecg_data_sample[5]  == 0 ) Uart_Write_Text("ERROR READING\r\n");
 
         time_value += 8.0;
         // calculate input voltage
